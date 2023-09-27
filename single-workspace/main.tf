@@ -1,19 +1,19 @@
-terraform {
-  cloud {
-    organization = "summercloud"
-    
+terraform { 
     required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
   }
+   cloud {
+    organization = "summercloud"
 
     workspaces {
       name = "tf-single-workspace"
     }
-  }
 }
+}
+
   # Configure the AWS Provider
 provider "aws" {
   region = "us-east-1"
@@ -37,7 +37,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
+  instance_type = var.instance_type
 
   tags = {
     Name = "HelloWorld"
